@@ -1,0 +1,18 @@
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "4bR-Kh-NGN"; */
+"4bR-Kh-NGN.text" = "Title";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "I6n-Kn-OQA"; */
+"I6n-Kn-OQA.text" = "Title";
+
+/* Class = "IBUILabel"; text = "密码"; ObjectID = "WsP-TP-g7F"; */
+"WsP-TP-g7F.text" = "密码";
+
+/* Class = "IBUILabel"; text = "邮箱地址"; ObjectID = "hWk-2b-vci"; */
+"hWk-2b-vci.text" = "邮箱地址";
+
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "oDh-fs-Jgy"; */
+"oDh-fs-Jgy.normalTitle" = "Button";
+
+/* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "t3a-aS-GZk"; */
+"t3a-aS-GZk.text" = "Subtitle";

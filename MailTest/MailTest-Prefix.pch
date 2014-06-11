@@ -1,0 +1,208 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#if __IPHONE_7_0 && __IPHONE_OS_VERSION_MAX_ALLOWED >=  __IPHONE_7_0
+#define IS_RUNNING_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+#else
+#define IS_RUNNING_IOS7 NO
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+#define REM_USER_DB_PATH                        @"FM_MAIL.db"
+#define Notification_reloadFolderListUI         @"Notification_reloadFolderListUI"
+#define USER_DEFAULT_CONTENT_ROW                @"content_row"
+#define USER_DEFAULT_NUMBERTOLOAD               @"number_to_load"
+
+//NSString * const UsernameKey = @"mailusername";
+//NSString * const PasswordKey = @"mailpassword";
+#define UsernameKey @"mailusername"
+#define PasswordKey @"mailpassword"
+#define MAIL_CHECK_FREQUENCY                    60    //定时检查邮件
+//FMDB
+#define FMDBQuickCheck(SomeBool) { if (!(SomeBool)) { NSLog(@"Failure on line %d", __LINE__); abort(); } }
+
+#pragma mark -
+//table column:zxh_mail_account
+#define zxh_mail_account_table                                          @"tb_zxh_mail_account"
+#define zxh_mail_account_id_def                                         @"account_id"
+#define zxh_mail_account_name_def                                       @"account_name"
+#define zxh_mail_account_alias_def                                      @"account_alias"
+#define zxh_mail_account_profile_def                                    @"account_profile"
+#define zxh_mail_account_type_def                                       @"account_type"
+#define zxh_mail_account_isChief_def                                    @"account_isChief"
+#define zxh_mail_account_isCloudPush_def                                @"account_isCloudPush"
+#define zxh_mail_account_state_def                                      @"account_state"
+#define zxh_mail_account_syncUtc_def                                    @"account_syncUtc"
+#define zxh_mail_account_synckey_def                                    @"account_synckey"
+#define zxh_mail_account_intervalPullTime_def                           @"account_intervalPullTime"
+
+#pragma mark -
+//table column:zxh_mail_account_setting
+#define zxh_mail_account_setting_table                                  @"tb_zxh_mail_account_setting"
+#define zxh_mail_account_setting_id_def                                 @"account_setting_id"
+#define zxh_mail_account_setting_name_def                               @"account_setting_name"
+#define zxh_mail_account_setting_image_def                              @"account_setting_image"
+#define zxh_mail_account_setting_sign_def                               @"account_setting_sign"
+#define zxh_mail_account_setting_pushFolderlist_def                     @"account_setting_pushFolderlist"
+#define zxh_mail_account_setting_accountNewMailTip_def                  @"account_setting_accountNewMailTip"
+#define zxh_mail_account_setting_revieveFolderTip_def                   @"account_setting_revieveFolderTip"
+#define zxh_mail_account_setting_showConversasion_def                   @"account_setting_showConversasion"
+#define zxh_mail_account_setting_enableAccountNewMailTip_def                @"account_setting_enableAccountNewMailTip"
+#define zxh_mail_account_setting_accountWebDiscKey_def                  @"account_setting_accountWebDiscKey"
+#define zxh_mail_account_setting_folderAccessNeedPassword_def       @"account_setting_folderAccessNeedPassword"
+#define zxh_mail_account_setting_userInputAccessFolderPassword_def       @"account_setting_userInputAccessFolderPassword"
+#define zxh_mail_account_setting_userHandleFolderToAccount_def       @"account_setting_userHandleFolderToAccount"
+#define zxh_mail_account_setting_descubcn_def                           @"account_setting_descubcnt"
+
+
+#pragma mark -
+//table column:zxh_mail_folder
+#define zxh_mail_folder_table                                           @"tb_zxh_mail_folder"
+#define  zxh_mail_folder_id_def                                         @"folder_id"
+#define  zxh_mail_folder_accountid_def                                  @"folder_accountid"
+#define  zxh_mail_folder_remoteid_def                                   @"folder_remoteid"
+#define  zxh_mail_folder_name_def                                       @"folder_name"
+#define  zxh_mail_folder_totalCnt_def                                   @"folder_totalCnt"
+#define  zxh_mail_folder_unReadCnt_def                                  @"folder_unReadCnt"
+#define  zxh_mail_folder_isTop_def                                      @"folder_isTop"
+#define  zxh_mail_folder_isVirtual_def                                  @"folder_isVirtual"
+#define  zxh_mail_folder_parentid_def                                   @"folder_parentid"
+#define  zxh_mail_folder_folderType_def                                 @"folder_folderType"
+#define  zxh_mail_folder_sequence_idr_def                               @"folder_sequence_idr"
+#define  zxh_mail_folder_showName_def                                   @"folder_showName"
+#define  zxh_mail_folder_parentName_def                                 @"folder_parentName"
+#define  zxh_mail_folder_syncStatus_def                                 @"folder_syncStatus"
+#define  zxh_mail_folder_svrKey_def                                     @"folder_svrKey"
+#define  zxh_mail_folder_syncUtc_def                                    @"folder_syncUtc"
+#define  zxh_mail_folder_outDate_def                                    @"folder_outDate"
+#define  zxh_mail_folder_hasNewMail_def                                 @"folder_hasNewMail"
+#define  zxh_mail_folder_remoteFolderType_def                           @"folder_remoteFolderType"
+#define  zxh_mail_folder_rType_def                                      @"folder_rType_def"
+#define  zxh_mail_folder_uidIder_def                                    @"folder_uidIder"
+#define  zxh_mail_folder_accountemail_def                               @"folder_accountemail"
+#define  zxh_mail_folder_acctid_def                                     @"folder_acctid"
+#define  zxh_mail_folder_editType_def                                   @"folder_editType"
+#define  zxh_mail_folder_uidNext_def                                    @"folder_uidNext"
+
+#pragma mark -
+//table column:zxh_mail_local_item
+#define zxh_mail_local_item_table                                       @"tb_zxh_mail_local_item"
+#define  zxh_mail_local_item_id_def                                     @"local_item_id"
+#define  zxh_mail_local_item_data_def                                   @"local_item_data"
+#define  zxh_mail_local_item_accountid_def                              @"local_item_accountid"
+#define  zxh_mail_local_item_type_def                                   @"local_item_type"
+#define  zxh_mail_local_item_state_def                                  @"local_item_state"
+#define  zxh_mail_local_item_createtime_def                             @"local_item_createtime"
+#define  zxh_mail_local_item_updatetime_def                             @"local_item_updatetime"
+
+#pragma mark -
+//table column:zxh_mail_mailinfo
+#define zxh_mail_mailinfo_table                                         @"tb_zxh_mail_mailinfo"
+#define   zxh_mail_mailinfo_mailid_def                                  @"mailinfo_mailid"
+#define   zxh_mail_mailinfo_folderid_def                                @"mailinfo_folderid"
+#define   zxh_mail_mailinfo_remoteid_def                                @"mailinfo_remoteid"
+#define   zxh_mail_mailinfo_subject_def                                 @"mailinfo_subject"
+#define   zxh_mail_mailinfo_abstract_def                                @"mailinfo_abstract"
+#define   zxh_mail_mailinfo_fromemail_def                               @"mailinfo_fromemail"
+#define   zxh_mail_mailinfo_tos_def                                     @"mailinfo_tos"
+#define   zxh_mail_mailinfo_ccs_def                                     @"mailinfo_ccs"
+#define   zxh_mail_mailinfo_bcc_def                                     @"mailinfo_bcc"
+#define   zxh_mail_mailinfo_replyto_def                                 @"mailinfo_replyto"
+#define   zxh_mail_mailinfo_hasAttach_def                               @"mailinfo_hasAttach"
+#define   zxh_mail_mailinfo_receiveUtc_def                              @"mailinfo_receiveUtc"
+#define   zxh_mail_mailinfo_sendUtc_def                                 @"mailinfo_sendUtc"
+#define   zxh_mail_mailinfo_isRead_def                                  @"mailinfo_isRead"
+#define   zxh_mail_mailinfo_isStar_def                                  @"mailinfo_isStar"
+#define   zxh_mail_mailinfo_isReplay_def                                @"mailinfo_isReplay"
+#define   zxh_mail_mailinfo_isForward_def                               @"mailinfo_isForward"
+#define   zxh_mail_mailinfo_mailAdType_def                              @"mailinfo_mailAdType"
+#define   zxh_mail_mailinfo_isVip_def                                   @"mailinfo_isVip"
+#define   zxh_mail_mailinfo_convId_def                                  @"mailinfo_convId"
+#define   zxh_mail_mailinfo_mailType_def                                @"mailinfo_mailType"
+#define   zxh_mail_mailinfo_messageId_def                               @"mailinfo_messageId"
+#define   zxh_mail_mailinfo_labels_def                                  @"mailinfo_labels"
+#define   zxh_mail_mailinfo_ref_def                                     @"mailinfo_ref"
+#define   zxh_mail_mailinfo_deleted_def                                 @"mailinfo_deleted"
+#define   zxh_mail_mailinfo_accountid_def                               @"mailinfo_accountid"
+#define   zxh_mail_mailinfo_convCount_def                               @"mailinfo_convCount"
+#define   zxh_mail_mailinfo_changeKey_def                               @"mailinfo_changeKey"
+#define   zxh_mail_mailinfo_gid_def                                     @"mailinfo_gid"
+#define   zxh_mail_mailinfo_isGroup_def                                 @"mailinfo_isGroup"
+#define   zxh_mail_mailinfo_folderName_def                              @"mailinfo_folderName"
+#define   zxh_mail_mailinfo_size_def                                    @"mailinfo_size"
+#define   zxh_mail_mailinfo_colid_def                                   @"mailinfo_colid"
+#define   zxh_mail_mailinfo_fremoteId_def                               @"mailinfo_fremoteId"
+#define   zxh_mail_mailinfo_fromNick_def                                @"mailinfo_fromNick"
+#define   zxh_mail_mailinfo_cheatCode_def                               @"mailinfo_cheatCode"
+#define   zxh_mail_mailinfo_ip_def                                      @"mailinfo_ip"
+#define   zxh_mail_mailinfo_convType_def                                @"mailinfo_convType"
+#define   zxh_mail_mailinfo_attach_count_def                                @"mailinfo_attach_count"
+#pragma mark - 
+//table column:zxh_mail_mailAttach
+#define   zxh_mail_mailAttach_table                                     @"tb_zxh_mail_mailAttach"
+#define   zxh_mail_mailAttach_attachId_def                              @"mailAttach_attachId"
+#define   zxh_mail_mailAttach_mailId_def                                @"mailAttach_mailId"
+#define   zxh_mail_mailAttach_name_def                                  @"mailAttach_name"
+#define   zxh_mail_mailAttach_type_def                                  @"mailAttach_type"
+#define   zxh_mail_mailAttach_downloadUtc_def                           @"mailAttach_downloadUtc"
+#define   zxh_mail_mailAttach_downloadState_def                         @"mailAttach_downloadState"
+#define   zxh_mail_mailAttach_downloadSize_def                          @"mailAttach_downloadSize"
+#define   zxh_mail_mailAttach_contentId_def                             @"mailAttach_contentId"
+#define   zxh_mail_mailAttach_exchangeField_def                         @"mailAttach_exchangeField"
+#define   zxh_mail_mailAttach_size_def                                  @"mailAttach_size"
+#define   zxh_mail_mailAttach_object_def                                @"mailAttach_object"
+#define   zxh_mail_mailAttach_url_def                                   @"mailAttach_url"
+
+#pragma mark - 
+//table column:zxh_mail_mailContent
+#define   zxh_mail_mailContent_table                                    @"tb_zxh_mail_mailContent"
+#define   zxh_mail_mailContent_mailId_def                               @"mailContent_mailId"
+#define   zxh_mail_mailContent_content_def                              @"mailContent_content"
+#define   zxh_mail_mailContent_sps_def                                  @"mailContent_sps"
+#define   zxh_mail_mailContent_attachs_def                              @"mailContent_attachs"
+#define   zxh_mail_mailContent_original_def                             @"mailContent_original"
+#define   zxh_mail_mailContent_originalText_def                         @"mailContent_originalText"
+#define   zxh_mail_mailContent_scale_def                                @"mailContent_scale"
+#define   zxh_mail_mailContent_length_def                               @"mailContent_length"
+#define   zxh_mail_mailContent_fold_def                                 @"mailContent_fold"
+#define   zxh_mail_mailContent_foldText_def                             @"mailContent_foldText"
+#define   zxh_mail_mailContent_contentText_def                          @"mailContent_contentText"
+#define   zxh_mail_mailContent_isComplete_def                           @"mailContent_isComplete"
+#define   zxh_mail_mailContent_contentType_def                          @"mailContent_contentType"
+#define   zxh_mail_mailContent_charset_def                              @"mailContent_charset"
+#define   zxh_mail_mailContent_isLoadImage_def                          @"mailContent_isLoadImage"
+#define   zxh_mail_mailContent_extraData_def                            @"mailContent_extraData"
+#define   zxh_mail_mailContent_hasImage_def                             @"mailContent_hasImage"
+#define   zxh_mail_mailContent_isHtml_def                               @"mailContent_isHtml"
+
+
+#define M_AUDIO     [NSArray arrayWithObjects:@"mp3",@"aac",@"wav",@"wma",nil]
+#define M_VIDEO     [NSArray arrayWithObjects:@"mp4",@"3gp",@"rm",@"rmvb",@"mov",@"mpv",@"avi",nil]
+#define M_COMPRESS  [NSArray arrayWithObjects:@"zip",@"rar",@"7z",nil]
+#define M_EML       [NSArray arrayWithObjects:@"eml",nil]
+#define M_EXCEL     [NSArray arrayWithObjects:@"xls",@"xlsx",nil]
+#define M_FLASH     [NSArray arrayWithObjects:@"fla",@"swf",nil]
+#define M_HTML      [NSArray arrayWithObjects:@"xml",@"json",@"html",@"htm",nil]
+#define M_IMAGE     [NSArray arrayWithObjects:@"png",@"jpg",@"jpeg",@"gif",@"tiff",@"raw",@"bmp",nil]
+#define M_KEYNOTE   [NSArray arrayWithObjects:@"key",nil]
+#define M_NUMBERS   [NSArray arrayWithObjects:@"numbers",nil]
+#define M_PAGES     [NSArray arrayWithObjects:@"pages",nil]
+#define M_PDF       [NSArray arrayWithObjects:@"pages",nil]
+#define M_PSD       [NSArray arrayWithObjects:@"pages",nil]
+#define M_TXT       [NSArray arrayWithObjects:@"txt",@"rtf",@"log",@"csv",nil]
+#define M_WORD      [NSArray arrayWithObjects:@"doc",@"docx",nil]
+#define M_PPT       [NSArray arrayWithObjects:@"ppt",@"pptx",nil]
+
