@@ -15,7 +15,8 @@
 #import "ZXHMail_ContainObjectContoller.h"
 #import "ZXHActivityTitleView.h"
 #import "ZXHMail_BodyTableViewController.h"
-#import "ZXHMySearchBar.h"
+#import "ZXHMailCreateFolderViewController.h"
+#import "ZXHMailEditFolderViewController.h"
 
 #define NUMBER_OF_MESSAGES_TO_LOAD		10
 static NSString *inboxInfoIdentifier = @"InboxStatusCell";
@@ -23,9 +24,8 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
 @interface ZXHMainTableViewController ()<MailCoreManagerDelegate,ZXHActivityTitleViewDelegate>
 {
     MailCoreManager *mailmanager;
-    UISearchDisplayController *sd;
-    UISearchBar *myBar;
-    UIView *siew;
+    float savedContentOffsetY;
+    BOOL isEditCell;
 }
 
 @property (nonatomic) NSInteger totalNumberOfInboxMessages;
@@ -74,7 +74,7 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
 	[[UIActivityIndicatorView alloc]
 	 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
-    [self setSearchBar];
+
     
     //refresh controller
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -83,104 +83,78 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
     self.refreshControl = refresh;
     
     //获取accountid
-    
     [self getAccountID];
-    
     [self setAcitityTitle];
-
     [self loadNavButton];
-
     [self fetchFolderListFromLocalDB];
+    [self setSearchBar];
     
+    savedContentOffsetY = self.tableView.tableHeaderView.frame.size.height;
 }
 
 - (void)setSearchBar
 {
-    siew = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    
-    ZXHMySearchBar *temp = [[ZXHMySearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    
-    temp.barStyle=UIBarStyleDefault;
-    temp.searchBarStyle = UISearchBarStyleMinimal;
-    temp.showsCancelButton = NO;
-    temp.autocorrectionType=UITextAutocorrectionTypeNo;
-    temp.autocapitalizationType=UITextAutocapitalizationTypeNone;
-    temp.delegate=self;
-    temp.scopeButtonTitles = @[@"发件人",@"收件人",@"主题",@"全部"];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(260, 0, 60, 44);
-    [btn setTitle:@"编辑" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(editMailBox) forControlEvents:UIControlEventTouchUpInside];
-    
-    UISearchDisplayController *searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:temp contentsController:self];
-    searchDisplayController.delegate = self;
-    searchDisplayController.searchResultsDataSource = self;
-    searchDisplayController.searchResultsDelegate=self;
-    searchDisplayController.active = NO;
-
-    sd = searchDisplayController;
-    myBar = temp;
-    [siew addSubview:temp];
-    //[siew addSubview:btn];
-    
-    self.tableView.tableHeaderView =siew;
-
+    self.searchBar.scopeButtonTitles = @[@"发件人",@"收件人",@"主题",@"全部"];
+    [self.searchBar setImage:[UIImage imageNamed:@"icon_nav_keyman@2x"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
 }
 
-- (void)editMailBox
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar
 {
-    self.tableView.editing = YES;
-}
-
-
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    //[searchBar becomeFirstResponder];
-    //  searchBar.showsCancelButton = YES;
-    searchBar.showsCancelButton = NO;
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-//    [searchBar setFrame:CGRectMake(0, 0, 320, 44)];
-//    [searchBar resignFirstResponder];
-//    siew.frame = CGRectMake(0, 0, 320, 44);
-   // searchBar.showsCancelButton = NO;
-    [searchBar setShowsCancelButton:NO animated:YES];
-    [searchBar resignFirstResponder];
-}
-
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
-{
-   // [controller setActive:YES animated:YES];
-    [controller.searchBar setFrame:CGRectMake(0, 0, 270, 44)];
-}
-
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
-    // [controller.searchBar removeFromSuperview];
-    NSLog(@"%@",controller.searchBar);
-    [controller.searchBar setFrame:CGRectMake(0, 0, 270, 44)];
-     [controller setActive:NO animated:NO];
-}
-
--(void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
-{
+    [self.searchDisplayController setActive:NO animated:YES];
     
- //   siew.frame = CGRectMake(0, 0, 320, 44);
-        [controller.searchBar setFrame:CGRectMake(0, 0, 270, 44)];
- //   [controller.searchBar removeFromSuperview];
-//    [UIView animateWithDuration:0.1
-//                     animations:^{
-//                         [controller.searchBar setFrame:CGRectMake(0, 0, 270, 44)];
-//                     }
-//                     completion:^(BOOL finished){
-//                         NSLog(@"completion block");
-//                     }];
+    [UIView animateWithDuration:0.3 animations:^(void){
+        CGSize searchSize = self.searchDisplayController.searchBar.bounds.size;
+        self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y+ searchSize.height);
+    } completion:^(BOOL finished){
+
+        CGSize searchSize = self.searchDisplayController.searchBar.bounds.size;
+        self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y-searchSize.height);
+        self.tableView.tableHeaderView = nil;
+        [self addBarButton];
+        isEditCell = YES;
+        [self.tableView reloadData];
+    }];
 }
 
+
+
+
+//设置一个完成和添加邮件的按钮
+
+- (void)addBarButton
+{
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"完成", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneAction)];
+    
+    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"新建邮箱", nil) style:UIBarButtonItemStylePlain target:self action:@selector(createFolder)];
+    
+    self.navigationItem.leftBarButtonItem = leftBtn;
+    self.navigationItem.rightBarButtonItem = rightBtn;
+}
+
+- (void)doneAction
+{
+    self.navigationItem.leftBarButtonItem = nil;
+    [self loadNavButton];
+    float y = self.tableView.contentOffset.y;
+    self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y-self.tableView.contentOffset.y);
+    [UIView animateWithDuration:0.3 animations:^(void){
+        self.tableView.tableHeaderView = self.searchBar;
+        self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, y);
+    } completion:^(BOOL finished){
+        isEditCell = NO;
+        [self.tableView reloadData];
+    }];
+   
+}
+
+- (void)createFolder
+{
+    ZXHMailCreateFolderViewController *vc =[self.storyboard instantiateViewControllerWithIdentifier:@"mailCreateFolder"];
+    vc.title = NSLocalizedString(@"新建邮箱", nil);
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
 
 - (void)getAccountID
 {
@@ -285,6 +259,7 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
                        hostname:(NSString *)hostname
                     oauth2Token:(NSString *)oauth2Token
 {
+    [self.titleView.activityIndicator startAnimating];
     [mailmanager loginToDomainWithTLS:hostname hostPort:Hostport username:username password:password];
 }
 
@@ -297,10 +272,10 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
 
 - (void)callLoginFinishedSuccessOnLoginController
 {
-    NSLog(@"login success");
     [self.titleView.activityIndicator startAnimating];
     [self getAccountID];
     [mailmanager fetchMailFolderList];
+    [self setAcitityTitle];
 }
 
 - (void)fetchFolderListFromLocalDB
@@ -346,6 +321,11 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
 
 #pragma mark - Table view data source
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return NSLocalizedString(@"文件夹", nil);
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 //#warning Potentially incomplete method implementation.
@@ -359,15 +339,6 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
     // Return the number of rows in the section.
 	return self.folderList.count;
 }
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    if (section == 0) {
-//        return NSLocalizedString(@"文件夹", nil);
-//    }
-//    return nil;
-//}
-
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -402,9 +373,26 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
                     cell.detailTextLabel.text = folder.zxh_mail_folder_unReadCnt;
                 }
                 
+                if (isEditCell) {
+                    if ([folder.zxh_mail_folder_editType intValue] == false) {
+                        cell.userInteractionEnabled = NO;
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        cell.textLabel.enabled = NO;
+                    }else
+                    {
+                        cell.userInteractionEnabled = YES;
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        cell.textLabel.enabled = YES;
+                    }
+                }else
+                {
+                    cell.userInteractionEnabled = YES;
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.textLabel.enabled = YES;
+                }
+                
                 //检查文件夹是否存在
                 [mailmanager checkMailFolderIsNotExisted:folder];
-                
                 return cell;
                 break;
             }
@@ -430,12 +418,20 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
 	{
 		case 0:
 		{
-
-            ZXHMail_InboxTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"mail_inbox"];
-            vc.folderObj = [self.folderList objectAtIndex:indexPath.row];
-            vc.accountObj = self.accountObj;
-            [self.navigationController pushViewController:vc animated:YES];
-            
+            if (!isEditCell)
+            {
+                ZXHMail_InboxTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"mail_inbox"];
+                vc.folderObj = [self.folderList objectAtIndex:indexPath.row];
+                vc.accountObj = self.accountObj;
+                [self.navigationController pushViewController:vc animated:YES];
+            }else
+            {
+                ZXHMailEditFolderViewController *vc =[self.storyboard instantiateViewControllerWithIdentifier:@"mailEditFolder"];
+                vc.title = NSLocalizedString(@"编辑邮箱", nil);
+                vc.folderObj = [self.folderList objectAtIndex:indexPath.row];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                [self.navigationController presentViewController:nav animated:YES completion:nil];
+            }
 			break;
 		}
 		default:

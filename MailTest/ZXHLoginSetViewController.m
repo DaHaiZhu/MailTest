@@ -58,6 +58,13 @@ NSString * const FetchFullMessageKey = @"FetchFullMessageEnabled";
     
     mailmanager = [MailCoreManager shareInstance];
     mailmanager.delegate = self;
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:UsernameKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_NUMBERTOLOAD];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_CONTENT_ROW];
+    [[FXKeychain defaultKeychain] removeObjectForKey:PasswordKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [mailmanager cancelFetchOperation];
 }
 
 - (void)viewDidAppear:(BOOL)animated

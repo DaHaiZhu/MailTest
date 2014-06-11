@@ -38,64 +38,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MailTest/ZXHMainTableViewController.m"
-            timestampString = "424088423.500368"
+            timestampString = "424175363.423346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "-searchDisplayControllerWillBeginSearch:"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "-zxhLoginViewControllerFinished:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MailTest/ZXHMainTableViewController.m"
-            timestampString = "424088423.500368"
+            timestampString = "424175368.591322"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "-searchDisplayControllerWillEndSearch:"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "-handleData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MailTest/ZXHMainTableViewController.m"
-            timestampString = "424088996.955835"
+            filePath = "MailTest/ZXHMailEditFolderViewController.m"
+            timestampString = "424176088.27053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "-searchBarTextDidBeginEditing:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MailTest/ZXHMainTableViewController.m"
-            timestampString = "424088996.955835"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "-searchBarTextDidEndEditing:"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "-changeNameToMailServer"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

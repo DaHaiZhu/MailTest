@@ -12,9 +12,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" showsBookmarkButton="YES" id="4ce-Dn-dPl">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Ncg-0C-xUz" id="R8W-fX-gyk"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="detailCell" textLabel="4bR-Kh-NGN" detailTextLabel="1vi-98-ISn" rowHeight="50" style="IBUITableViewCellStyleValue1" id="sKL-ju-JhZ">
-                                <rect key="frame" x="0.0" y="86" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sKL-ju-JhZ" id="LQd-Gs-IGX">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
@@ -45,7 +53,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="fkL-Xz-AOX"/>
                     <connections>
-                        <outlet property="searchDisplayController" destination="teJ-N0-hSc" id="ATa-UA-1Ln"/>
+                        <outlet property="searchBar" destination="4ce-Dn-dPl" id="EQy-bR-gyT"/>
+                        <outlet property="searchDisplayController" destination="tKi-Zb-2Lw" id="VkE-yP-r4N"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5h6-Ab-31y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -151,6 +160,15 @@
                         <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="Acj-2m-KdC"/>
                         <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="45R-KX-bmd"/>
                         <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="hSG-Wd-pkM"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="tKi-Zb-2Lw">
+                    <connections>
+                        <outlet property="delegate" destination="Ncg-0C-xUz" id="XPk-tF-PEv"/>
+                        <outlet property="searchBar" destination="4ce-Dn-dPl" id="0ik-46-ytI"/>
+                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="TKg-0I-R1m"/>
+                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="SFz-Ri-F6U"/>
+                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="c13-5t-wsg"/>
                     </connections>
                 </searchDisplayController>
             </objects>
@@ -312,6 +330,99 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mPv-0E-Gw1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1278" y="167"/>
+        </scene>
+        <!--Mail Create Folder View Controller-->
+        <scene sceneID="vVg-Y2-oI0">
+            <objects>
+                <viewController storyboardIdentifier="mailCreateFolder" id="0hd-VQ-Z1U" customClass="ZXHMailCreateFolderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ypI-JE-Qzm"/>
+                        <viewControllerLayoutGuide type="bottom" id="lpd-g5-oqS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="heB-NT-pcm">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gN1-rG-Pp2">
+                                <rect key="frame" x="0.0" y="103" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xmk-kv-H2C">
+                                <rect key="frame" x="21" y="113" width="279" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="textField" destination="xmk-kv-H2C" id="qQZ-q4-K5Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ckh-Cd-UvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398" y="833"/>
+        </scene>
+        <!--Mail Edit Folder View Controller-->
+        <scene sceneID="zgW-KM-vfe">
+            <objects>
+                <viewController storyboardIdentifier="mailEditFolder" id="0J2-Mi-PPD" customClass="ZXHMailEditFolderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Dy-d7-859"/>
+                        <viewControllerLayoutGuide type="bottom" id="ixG-05-OsV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EcF-sh-3hn">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQn-lO-Vpl">
+                                <rect key="frame" x="0.0" y="107" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCO-al-0AM">
+                                <rect key="frame" x="0.0" y="188" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWN-Zp-RGf">
+                                        <rect key="frame" x="20" y="8" width="280" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteAction:" destination="0J2-Mi-PPD" eventType="touchUpInside" id="rWR-IY-hJg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XOb-Lj-HXZ">
+                                <rect key="frame" x="20" y="117" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="deleteBtn" destination="fWN-Zp-RGf" id="JnV-ty-KOo"/>
+                        <outlet property="textfield" destination="XOb-Lj-HXZ" id="qTG-kk-lB6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yz-po-4jp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="740" y="833"/>
         </scene>
         <!--Mail Body Table View Controller-->
         <scene sceneID="G3f-kJ-EKB">

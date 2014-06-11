@@ -227,8 +227,8 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
 }
 - (void)writeEmail:(id)arg
 {
-    
 }
+
 
 - (void)didReceiveMemoryWarning
 {

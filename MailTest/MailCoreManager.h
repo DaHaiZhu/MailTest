@@ -20,6 +20,10 @@
 - (void)callFetchMessageFinished;
 - (void)callDeleteNonExistedFolder;
 - (void)callDeleteNonExistedMail;
+- (void)callCreateMailFolder:(NSError *)error;
+- (void)callDeleteMailFolder:(NSError *)error;
+- (void)callEditMailFolder:(NSError *)error;
+- (void)callRenameMailFolder:(NSError *)error;
 @end
 
 
@@ -33,15 +37,20 @@
 @property (weak) id<MailCoreManagerDelegate>delegate;
 @property (weak) id<MailCoreManagerDelegate>loadFolderDelegate;
 @property (weak) id<MailCoreManagerDelegate>loadMailContentDelegate;
+@property (weak) id<MailCoreManagerDelegate>createFolderDelegate;
+@property (weak) id<MailCoreManagerDelegate>editFolderDelegate;
 +(MailCoreManager *)shareInstance;
 
 //停止操作
 - (MCOIMAPSession *)session;
 - (void)cancelFetchOperation;
+- (void)stopTimer;
+- (void)startTimer;
 
 - (void)loginToDomainWithTLS:(NSString *)hostName hostPort:(NSInteger)hostPort username:(NSString *)username password:(NSString *)password;
 
 - (void)fetchMailFolderList;
+- (void)runLoopList;
 - (void)saveFolderListToLocalDB:(NSArray *)folders accountid:(NSUInteger)accountid;
 - (void)fetchFolderDetailInfoToLocalDB:(ZXHMail_FolderObject *)folder;
 
@@ -56,4 +65,13 @@
 
 //检查邮件是否存在
 - (void)checkMailMessageIsNotExisted:(ZXHMail_MailInfoObject *)mailMessage;
+
+//文件夹操作
+//新建文件夹
+
+- (void)createNewMailFolder:(NSString *)foldername;
+
+- (void)deleteMailFolder:(NSString *)foldername;
+
+- (void)renameMailFolder:(NSString *)oldername newName:(NSString *)newname;
 @end

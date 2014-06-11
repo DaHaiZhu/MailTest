@@ -49,6 +49,17 @@
 		00A9277D192F440900184E56 /* UIViewController+ScrollingNavbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A9277C192F440900184E56 /* UIViewController+ScrollingNavbar.m */; };
 		00A927CC192F510400184E56 /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A927C9192F510400184E56 /* NJKScrollFullScreen.m */; };
 		00A927CD192F510400184E56 /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A927CB192F510400184E56 /* UIViewController+NJKFullScreenSupport.m */; };
+		00AC3F5F1947EBF300A32297 /* icon_edit_lang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F5E1947EBF300A32297 /* icon_edit_lang@2x.png */; };
+		00AC3F621948104500A32297 /* ZXHMailCreateFolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AC3F611948104500A32297 /* ZXHMailCreateFolderViewController.m */; };
+		00AC3F6919481E1B00A32297 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F6519481E1B00A32297 /* 37x-Checkmark.png */; };
+		00AC3F6A19481E1B00A32297 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F6619481E1B00A32297 /* 37x-Checkmark@2x.png */; };
+		00AC3F6B19481E1B00A32297 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AC3F6819481E1B00A32297 /* MBProgressHUD.m */; };
+		00AC3F7019481FA800A32297 /* icon_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F6C19481FA800A32297 /* icon_cancel.png */; };
+		00AC3F7119481FA800A32297 /* icon_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F6D19481FA800A32297 /* icon_cancel@2x.png */; };
+		00AC3F7219481FA800A32297 /* icon_checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F6E19481FA800A32297 /* icon_checkmark.png */; };
+		00AC3F7319481FA800A32297 /* icon_checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F6F19481FA800A32297 /* icon_checkmark@2x.png */; };
+		00AC3F761948287200A32297 /* ZXHMailEditFolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AC3F751948287200A32297 /* ZXHMailEditFolderViewController.m */; };
+		00AC3F7D1948480D00A32297 /* icon_nav_keyman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC3F7C1948480D00A32297 /* icon_nav_keyman@2x.png */; };
 		00C536311925AB4D00B5A23F /* btn_dot_large_download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C535DB1925AB4D00B5A23F /* btn_dot_large_download@2x.png */; };
 		00C536321925AB4D00B5A23F /* btn_dot_large_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C535DC1925AB4D00B5A23F /* btn_dot_large_pause@2x.png */; };
 		00C536331925AB4D00B5A23F /* btn_nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C535DD1925AB4D00B5A23F /* btn_nav_back@2x.png */; };
@@ -113,7 +124,6 @@
 		00C536D01926056A00B5A23F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C536CF1926056A00B5A23F /* AudioToolbox.framework */; };
 		00C536D2192608E000B5A23F /* msgwarning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C536D1192608E000B5A23F /* msgwarning.wav */; };
 		00EE6F88193EE70300F00DA2 /* ZXHMail_Attachment_infoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EE6F87193EE70300F00DA2 /* ZXHMail_Attachment_infoObject.m */; };
-		00F55B38194714FB00A4B977 /* ZXHMySearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F55B37194714FB00A4B977 /* ZXHMySearchBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -238,6 +248,20 @@
 		00A927C9192F510400184E56 /* NJKScrollFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKScrollFullScreen.m; sourceTree = "<group>"; };
 		00A927CA192F510400184E56 /* UIViewController+NJKFullScreenSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NJKFullScreenSupport.h"; sourceTree = "<group>"; };
 		00A927CB192F510400184E56 /* UIViewController+NJKFullScreenSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NJKFullScreenSupport.m"; sourceTree = "<group>"; };
+		00AC3F5E1947EBF300A32297 /* icon_edit_lang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_edit_lang@2x.png"; sourceTree = "<group>"; };
+		00AC3F601948104500A32297 /* ZXHMailCreateFolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXHMailCreateFolderViewController.h; sourceTree = "<group>"; };
+		00AC3F611948104500A32297 /* ZXHMailCreateFolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXHMailCreateFolderViewController.m; sourceTree = "<group>"; };
+		00AC3F6519481E1B00A32297 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
+		00AC3F6619481E1B00A32297 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		00AC3F6719481E1B00A32297 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		00AC3F6819481E1B00A32297 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		00AC3F6C19481FA800A32297 /* icon_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_cancel.png; sourceTree = "<group>"; };
+		00AC3F6D19481FA800A32297 /* icon_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_cancel@2x.png"; sourceTree = "<group>"; };
+		00AC3F6E19481FA800A32297 /* icon_checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_checkmark.png; sourceTree = "<group>"; };
+		00AC3F6F19481FA800A32297 /* icon_checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_checkmark@2x.png"; sourceTree = "<group>"; };
+		00AC3F741948287200A32297 /* ZXHMailEditFolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXHMailEditFolderViewController.h; sourceTree = "<group>"; };
+		00AC3F751948287200A32297 /* ZXHMailEditFolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXHMailEditFolderViewController.m; sourceTree = "<group>"; };
+		00AC3F7C1948480D00A32297 /* icon_nav_keyman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_nav_keyman@2x.png"; sourceTree = "<group>"; };
 		00C535DB1925AB4D00B5A23F /* btn_dot_large_download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_dot_large_download@2x.png"; sourceTree = "<group>"; };
 		00C535DC1925AB4D00B5A23F /* btn_dot_large_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_dot_large_pause@2x.png"; sourceTree = "<group>"; };
 		00C535DD1925AB4D00B5A23F /* btn_nav_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_nav_back@2x.png"; sourceTree = "<group>"; };
@@ -305,8 +329,6 @@
 		00C536D1192608E000B5A23F /* msgwarning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = msgwarning.wav; sourceTree = "<group>"; };
 		00EE6F86193EE70300F00DA2 /* ZXHMail_Attachment_infoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXHMail_Attachment_infoObject.h; sourceTree = "<group>"; };
 		00EE6F87193EE70300F00DA2 /* ZXHMail_Attachment_infoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXHMail_Attachment_infoObject.m; sourceTree = "<group>"; };
-		00F55B36194714FB00A4B977 /* ZXHMySearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXHMySearchBar.h; sourceTree = "<group>"; };
-		00F55B37194714FB00A4B977 /* ZXHMySearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXHMySearchBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,20 +412,8 @@
 			children = (
 				007D9A8A1938174300067EAF /* MialBody */,
 				00A56A90192D882E003A0B35 /* MailCoreDelegate */,
-				009EA0D3192C7C37003223DC /* DBController */,
-				009111831924B9820079781E /* MCTMsgViewController.h */,
-				009111841924B9820079781E /* MCTMsgViewController.m */,
-				009111851924B9820079781E /* MCOCIDURLProtocol.h */,
-				009111861924B9820079781E /* MCOCIDURLProtocol.m */,
-				009111871924B9820079781E /* MCOMessageView.h */,
-				009111881924B9820079781E /* MCOMessageView.m */,
-				009111711924AB4F0079781E /* Resource */,
 				00911157192467A90079781E /* Common */,
-				0091110F1924665C0079781E /* AppDelegate.h */,
-				009111101924665C0079781E /* AppDelegate.m */,
-				009111121924665C0079781E /* Main.storyboard */,
-				009111181924665C0079781E /* Images.xcassets */,
-				009111071924665C0079781E /* Supporting Files */,
+				009EA0D3192C7C37003223DC /* DBController */,
 				009111541924675C0079781E /* ZXHMainTableViewController.h */,
 				009111551924675C0079781E /* ZXHMainTableViewController.m */,
 				00911160192469C10079781E /* ZXHLoginSetViewController.h */,
@@ -412,6 +422,22 @@
 				0091116B19249FD70079781E /* ZXHMail_InboxTableViewController.m */,
 				00C536CC1925F47B00B5A23F /* ZXHMail_SettingTableViewController.h */,
 				00C536CD1925F47B00B5A23F /* ZXHMail_SettingTableViewController.m */,
+				00AC3F601948104500A32297 /* ZXHMailCreateFolderViewController.h */,
+				00AC3F611948104500A32297 /* ZXHMailCreateFolderViewController.m */,
+				00AC3F741948287200A32297 /* ZXHMailEditFolderViewController.h */,
+				00AC3F751948287200A32297 /* ZXHMailEditFolderViewController.m */,
+				009111831924B9820079781E /* MCTMsgViewController.h */,
+				009111841924B9820079781E /* MCTMsgViewController.m */,
+				009111851924B9820079781E /* MCOCIDURLProtocol.h */,
+				009111861924B9820079781E /* MCOCIDURLProtocol.m */,
+				009111871924B9820079781E /* MCOMessageView.h */,
+				009111881924B9820079781E /* MCOMessageView.m */,
+				009111711924AB4F0079781E /* Resource */,
+				0091110F1924665C0079781E /* AppDelegate.h */,
+				009111101924665C0079781E /* AppDelegate.m */,
+				009111121924665C0079781E /* Main.storyboard */,
+				009111181924665C0079781E /* Images.xcassets */,
+				009111071924665C0079781E /* Supporting Files */,
 			);
 			path = MailTest;
 			sourceTree = "<group>";
@@ -460,6 +486,7 @@
 		00911157192467A90079781E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				00AC3F6319481E1B00A32297 /* MBProgressHUD */,
 				00A927C7192F510400184E56 /* NJKScrollFullScreen */,
 				00A9277A192F440900184E56 /* AMScrollingNavbar */,
 				00A9276D192EF26600184E56 /* ActivityTitleView */,
@@ -470,8 +497,6 @@
 				0091116419247B200079781E /* UITextField+Shake.m */,
 				00911158192467B40079781E /* FXKeychain.h */,
 				00911159192467B40079781E /* FXKeychain.m */,
-				00F55B36194714FB00A4B977 /* ZXHMySearchBar.h */,
-				00F55B37194714FB00A4B977 /* ZXHMySearchBar.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -569,9 +594,34 @@
 			path = NJKScrollFullScreen;
 			sourceTree = "<group>";
 		};
+		00AC3F6319481E1B00A32297 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				00AC3F6419481E1B00A32297 /* images */,
+				00AC3F6719481E1B00A32297 /* MBProgressHUD.h */,
+				00AC3F6819481E1B00A32297 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		00AC3F6419481E1B00A32297 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				00AC3F6519481E1B00A32297 /* 37x-Checkmark.png */,
+				00AC3F6619481E1B00A32297 /* 37x-Checkmark@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		00C5369F1925B5EE00B5A23F /* Moremenu */ = {
 			isa = PBXGroup;
 			children = (
+				00AC3F7C1948480D00A32297 /* icon_nav_keyman@2x.png */,
+				00AC3F6C19481FA800A32297 /* icon_cancel.png */,
+				00AC3F6D19481FA800A32297 /* icon_cancel@2x.png */,
+				00AC3F6E19481FA800A32297 /* icon_checkmark.png */,
+				00AC3F6F19481FA800A32297 /* icon_checkmark@2x.png */,
+				00AC3F5E1947EBF300A32297 /* icon_edit_lang@2x.png */,
 				00C535E51925AB4D00B5A23F /* filetype_audio_51h@2x.png */,
 				00C535E81925AB4D00B5A23F /* filetype_compress_51h@2x.png */,
 				00C535EB1925AB4D00B5A23F /* filetype_eml_51h@2x.png */,
@@ -755,6 +805,7 @@
 				00C5367A1925AB4D00B5A23F /* icon_nav_info@2x.png in Resources */,
 				00C536411925AB4D00B5A23F /* filetype_eml_51h@2x.png in Resources */,
 				00C536841925AB4D00B5A23F /* icon_status_error@2x.png in Resources */,
+				00AC3F7119481FA800A32297 /* icon_cancel@2x.png in Resources */,
 				00C5367F1925AB4D00B5A23F /* icon_next@2x.png in Resources */,
 				00C536B91925BBE000B5A23F /* shake_found.wav in Resources */,
 				00C5365F1925AB4D00B5A23F /* filetype_pdf_51h@2x.png in Resources */,
@@ -775,6 +826,7 @@
 				00C536821925AB4D00B5A23F /* icon_star@2x.png in Resources */,
 				00C536731925AB4D00B5A23F /* icon_attachbtn_paperclip_highlighted@2x.png in Resources */,
 				009111141924665C0079781E /* Main.storyboard in Resources */,
+				00AC3F5F1947EBF300A32297 /* icon_edit_lang@2x.png in Resources */,
 				00C536361925AB4D00B5A23F /* btn_nav_next_highlighted@2x.png in Resources */,
 				00C536831925AB4D00B5A23F /* icon_status_attach@2x.png in Resources */,
 				00C536331925AB4D00B5A23F /* btn_nav_back@2x.png in Resources */,
@@ -796,13 +848,16 @@
 				009111791924B0FC0079781E /* mailbox_keyman@2x.png in Resources */,
 				00C5363B1925AB4D00B5A23F /* filetype_audio_51h@2x.png in Resources */,
 				00C536621925AB4D00B5A23F /* filetype_ppt_51h@2x.png in Resources */,
+				00AC3F6919481E1B00A32297 /* 37x-Checkmark.png in Resources */,
 				00C536501925AB4D00B5A23F /* filetype_image_51h@2x.png in Resources */,
+				00AC3F7219481FA800A32297 /* icon_checkmark.png in Resources */,
 				00C536311925AB4D00B5A23F /* btn_dot_large_download@2x.png in Resources */,
 				00C536321925AB4D00B5A23F /* btn_dot_large_pause@2x.png in Resources */,
 				009111731924AB5F0079781E /* icon_folder@2x.png in Resources */,
 				00C5367D1925AB4D00B5A23F /* icon_nav_upload@2x.png in Resources */,
 				00C536471925AB4D00B5A23F /* filetype_flash_51h@2x.png in Resources */,
 				00C536341925AB4D00B5A23F /* btn_nav_native_back@2x.png in Resources */,
+				00AC3F7D1948480D00A32297 /* icon_nav_keyman@2x.png in Resources */,
 				00C536711925AB4D00B5A23F /* icon_attach_readmail.png in Resources */,
 				00C536531925AB4D00B5A23F /* filetype_keynote_51h@2x.png in Resources */,
 				00C5367B1925AB4D00B5A23F /* icon_nav_setting@2x.png in Resources */,
@@ -811,6 +866,9 @@
 				00C536761925AB4D00B5A23F /* icon_delete@2x.png in Resources */,
 				00C536441925AB4D00B5A23F /* filetype_excel_51h@2x.png in Resources */,
 				00C536771925AB4D00B5A23F /* icon_more_lang@2x.png in Resources */,
+				00AC3F6A19481E1B00A32297 /* 37x-Checkmark@2x.png in Resources */,
+				00AC3F7019481FA800A32297 /* icon_cancel.png in Resources */,
+				00AC3F7319481FA800A32297 /* icon_checkmark@2x.png in Resources */,
 				009111771924AF950079781E /* icon_folder_lang@2x.png in Resources */,
 				00C536381925AB4D00B5A23F /* btn_nav_prev_disabled@2x.png in Resources */,
 				00C536751925AB4D00B5A23F /* icon_delete_lang@2x.png in Resources */,
@@ -837,6 +895,7 @@
 			files = (
 				00911162192469C10079781E /* ZXHLoginSetViewController.m in Sources */,
 				00A927CC192F510400184E56 /* NJKScrollFullScreen.m in Sources */,
+				00AC3F761948287200A32297 /* ZXHMailEditFolderViewController.m in Sources */,
 				009111891924B9820079781E /* MCTMsgViewController.m in Sources */,
 				00A9277D192F440900184E56 /* UIViewController+ScrollingNavbar.m in Sources */,
 				009EA0C8192C799D003223DC /* FMDatabase.m in Sources */,
@@ -848,8 +907,8 @@
 				009EA0CA192C799D003223DC /* FMDatabasePool.m in Sources */,
 				0091118A1924B9820079781E /* MCOCIDURLProtocol.m in Sources */,
 				00A927CD192F510400184E56 /* UIViewController+NJKFullScreenSupport.m in Sources */,
+				00AC3F6B19481E1B00A32297 /* MBProgressHUD.m in Sources */,
 				00EE6F88193EE70300F00DA2 /* ZXHMail_Attachment_infoObject.m in Sources */,
-				00F55B38194714FB00A4B977 /* ZXHMySearchBar.m in Sources */,
 				009EA0CB192C799D003223DC /* FMDatabaseQueue.m in Sources */,
 				0091116519247B210079781E /* UITextField+Shake.m in Sources */,
 				009111561924675C0079781E /* ZXHMainTableViewController.m in Sources */,
@@ -857,6 +916,7 @@
 				009111111924665C0079781E /* AppDelegate.m in Sources */,
 				009EA0CC192C799D003223DC /* FMResultSet.m in Sources */,
 				0091116C19249FD70079781E /* ZXHMail_InboxTableViewController.m in Sources */,
+				00AC3F621948104500A32297 /* ZXHMailCreateFolderViewController.m in Sources */,
 				007D9A941938308E00067EAF /* ZXHMail_BodyTableViewController.m in Sources */,
 				00A56A97192D8857003A0B35 /* MailCoreManager.m in Sources */,
 				0091110D1924665C0079781E /* main.m in Sources */,

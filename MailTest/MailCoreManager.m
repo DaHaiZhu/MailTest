@@ -12,7 +12,7 @@
 
 @implementation MailCoreManager
 static MailCoreManager *shareInstance;
-
+static NSTimer *timer;
 +(MailCoreManager*)shareInstance
 {
     static dispatch_once_t onceToken;
@@ -55,6 +55,7 @@ static MailCoreManager *shareInstance;
             if ([self.loadFolderDelegate respondsToSelector:@selector(callLoginFinishedFailOnLoginController:)]) {
                 [self.loadFolderDelegate callLoginFinishedFailOnLoginController:error];
             }
+           [self stopTimer];
         }else
         {
             
@@ -69,39 +70,97 @@ static MailCoreManager *shareInstance;
             //定时检查邮件
             static dispatch_once_t onceCheck;
             dispatch_once(&onceCheck, ^{
-                NSTimer *timer=[NSTimer timerWithTimeInterval:MAIL_CHECK_FREQUENCY target:self selector:@selector(fetchMailFolderList) userInfo:nil repeats:YES];
+                timer=[NSTimer timerWithTimeInterval:MAIL_CHECK_FREQUENCY target:self selector:@selector(runLoopList) userInfo:nil repeats:YES];
                 [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
             });
+            [self startTimer];
         }
         imapCheckOp = nil;
     }];
     
 }
+
+- (void)startTimer
+{
+    [timer setFireDate:[NSDate distantPast]];
+}
+
+- (void)stopTimer
+{
+     [timer setFireDate:[NSDate distantFuture]];
+}
+
+- (void)runLoopList
+{
+    if (imapSession.operationQueueRunning) {
+        return;
+    }else
+    {
+        NSLog(@"run loop");
+    }
+    @try {
+        ZXHMail_ContainObjectContoller *account = [ZXHMail_ContainObjectContoller fetchAccountFromLocalByName:[[NSUserDefaults standardUserDefaults] objectForKey:UsernameKey] dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+        if (imapSession == nil) return;
+        imapFolderFecthOp = [imapSession fetchAllFoldersOperation];
+        [imapFolderFecthOp start:^(NSError *error , NSArray *folders){
+
+            if ([self.loadFolderDelegate respondsToSelector:@selector(callFetchFolderFromSevFinished)])
+            {
+                [self.loadFolderDelegate callFetchFolderFromSevFinished];
+            }
+            if(!error)
+            {
+                //存入本地数据库
+                [self saveFolderListToLocalDB:folders accountid:account.zxh_mail_account_id];
+            }
+            else{
+                
+            }
+            imapFolderFecthOp = nil;
+        }];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",[exception description]);
+    }
+    @finally {
+    }
+}
+
 - (void)fetchMailFolderList
 {
-    ZXHMail_ContainObjectContoller *account = [ZXHMail_ContainObjectContoller fetchAccountFromLocalByName:[[NSUserDefaults standardUserDefaults] objectForKey:UsernameKey] dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
-    if (imapSession == nil) return;
-    imapFolderFecthOp = [imapSession fetchAllFoldersOperation];
-    [imapFolderFecthOp start:^(NSError *error , NSArray *folders){
-        if ([self.loadFolderDelegate respondsToSelector:@selector(callFetchFolderFromSevFinished)])
-        {
-            [self.loadFolderDelegate callFetchFolderFromSevFinished];
-        }
-        if(!error)
-        {
-            //存入本地数据库
-            [self saveFolderListToLocalDB:folders accountid:account.zxh_mail_account_id];
-        }
-        else{
-            NSLog(@"%@",error);
-        }
-        imapFolderFecthOp = nil;
-    }];
+    @try {
+        ZXHMail_ContainObjectContoller *account = [ZXHMail_ContainObjectContoller fetchAccountFromLocalByName:[[NSUserDefaults standardUserDefaults] objectForKey:UsernameKey] dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+        if (imapSession == nil) return;
+        imapFolderFecthOp = [imapSession fetchAllFoldersOperation];
+        [imapFolderFecthOp start:^(NSError *error , NSArray *folders){
+           
+            if ([self.loadFolderDelegate respondsToSelector:@selector(callFetchFolderFromSevFinished)])
+            {
+                [self.loadFolderDelegate callFetchFolderFromSevFinished];
+            }
+            if(!error)
+            {
+                //存入本地数据库
+                [self saveFolderListToLocalDB:folders accountid:account.zxh_mail_account_id];
+            }
+            else{
+
+            }
+            imapFolderFecthOp = nil;
+        }];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",[exception description]);
+    }
+    @finally {
+    }
 }
 
 - (void)saveFolderListToLocalDB:(NSArray *)folders accountid:(NSUInteger)accountid
 {
+    int count;
     for (MCOIMAPFolder *folder in folders) {
+        count++;
         MCOIMAPFolderInfoOperation * op = [imapSession folderInfoOperation:folder.path];
 
         [op start:^(NSError *error, MCOIMAPFolderInfo * info) {
@@ -133,6 +192,18 @@ static MailCoreManager *shareInstance;
                 if ([[folderObj.zxh_mail_folder_showName lowercaseString] isEqualToString:@"inbox"])
                 {
                     folderObj.zxh_mail_folder_showName = NSLocalizedString(@"收件箱", nil);
+                }else if([[folderObj.zxh_mail_folder_showName lowercaseString] isEqualToString:@"sent messages"])
+                {
+                    folderObj.zxh_mail_folder_showName = NSLocalizedString(@"已发送", nil);
+                }else if([[folderObj.zxh_mail_folder_showName lowercaseString] isEqualToString:@"drafts"])
+                {
+                    folderObj.zxh_mail_folder_showName = NSLocalizedString(@"草稿箱", nil);
+                }else if([[folderObj.zxh_mail_folder_showName lowercaseString] isEqualToString:@"deleted messages"])
+                {
+                    folderObj.zxh_mail_folder_showName = NSLocalizedString(@"废纸篓", nil);
+                }else if([[folderObj.zxh_mail_folder_showName lowercaseString] isEqualToString:@"junk"])
+                {
+                    folderObj.zxh_mail_folder_showName = NSLocalizedString(@"垃圾邮件", nil);
                 }
                 
                 folderObj.zxh_mail_folder_uidIder = [NSString stringWithFormat:@"%lu",(unsigned long)info.uidValidity];
@@ -153,25 +224,48 @@ static MailCoreManager *shareInstance;
                     folderObj.zxh_mail_folder_editType = @"0";  //不可编辑文件夹
                 }
                 
-                /*
-                if ([ZXHMail_FolderObject haveSaveFolderById:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
+                if (![ZXHMail_FolderObject haveSaveFolderById:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
                 {
-
-                    //如果已经文件夹已经保存，则检查邮箱的UID是否发生改变，如果改变 则表示有新邮件，获取UID之后的所有新邮件
-                    ZXHMail_FolderObject *obj  = [ZXHMail_FolderObject fetchFolderUidNextFromLocal:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
-                    if (obj) {
-                        if (obj.zxh_mail_folder_uidNext < folderObj.zxh_mail_folder_uidNext)
-                        {
-                            //发现新邮件 从server获取邮件
-                            [self fetchNewMailByUID:folderObj oldObj:obj];
-                        }
+                    BOOL res  =  [ZXHMail_FolderObject saveNewFolder:folderObj
+                                                              dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+                    if (res)
+                    {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
+                                                                            object:self
+                                                                          userInfo:nil];
                     }
-
-                    
+                }else
+                {
+                    BOOL res  =  [ZXHMail_FolderObject updateFolder:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+                    if (res)
+                    {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
+                                                                            object:self
+                                                                          userInfo:nil];
+                        
+                    }
                 }
-                 */
-                [self fetchFolderDetailInfoToLocalDB:folderObj];
+   
+//                if ([ZXHMail_FolderObject haveSaveFolderById:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
+//                {
+//
+//                    //如果已经文件夹已经保存，则检查邮箱的UID是否发生改变，如果改变 则表示有新邮件，获取UID之后的所有新邮件
+//                    ZXHMail_FolderObject *obj  = [ZXHMail_FolderObject fetchFolderUidNextFromLocal:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+//                    if (obj) {
+//                        if (obj.zxh_mail_folder_uidNext < folderObj.zxh_mail_folder_uidNext)
+//                        {
+//                            //发现新邮件 从server获取邮件
+//                            [self fetchNewMailByUID:folderObj oldObj:obj];
+//                        }
+//                    }
+//
+//                    
+//                }
 
+             //   [self fetchFolderDetailInfoToLocalDB:folderObj];
+            }else
+            {
+                NSLog(@"error:%@",error.description);
             }
         }];
         op = nil;
@@ -360,6 +454,9 @@ static MailCoreManager *shareInstance;
                 [self.loadFolderDelegate callDeleteNonExistedFolder];
             }
   
+        }else if (error == nil)
+        {
+            //[ self fetchFolderDetailInfoToLocalDB:folder];
         }
     }];
     
@@ -391,8 +488,6 @@ static MailCoreManager *shareInstance;
             {
                 flag = false;
             }
-            NSLog(@"%d",msg.flags);
-            
             if (flag == mailMessage.zxh_mail_mailinfo_isRead) return ;
             mailMessage.zxh_mail_mailinfo_isRead = flag;
             
@@ -409,4 +504,68 @@ static MailCoreManager *shareInstance;
     }];
 }
 
+
+#pragma mark - MailFolder Operation
+//文件夹操作
+//新建文件夹
+
+- (void)createNewMailFolder:(NSString *)foldername
+{
+    //编码 uft7-imap
+    unsigned long encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF7_IMAP);
+    NSData *responseData =[foldername dataUsingEncoding:encode ];
+    NSString *encodeStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+
+    MCOIMAPOperation * op = [imapSession createFolderOperation:encodeStr];
+    [op start:^(NSError * error) {
+        if ([self.createFolderDelegate respondsToSelector:@selector(callCreateMailFolder:)])
+        {
+            [self.createFolderDelegate callCreateMailFolder:error];
+        }
+        if (!error) {
+            if ([self.loadFolderDelegate respondsToSelector:@selector(callLoginFinishedSuccessOnLoginController)]) {
+                [self.loadFolderDelegate callLoginFinishedSuccessOnLoginController];
+            }
+        }
+    }];
+}
+
+- (void)deleteMailFolder:(NSString *)foldername
+{
+    MCOIMAPOperation * op = [imapSession deleteFolderOperation:foldername];
+    [op start:^(NSError * error) {
+        if ([self.editFolderDelegate respondsToSelector:@selector(callDeleteMailFolder:)])
+        {
+            [self.editFolderDelegate callDeleteMailFolder:error];
+        }
+        if (!error) {
+            if ([self.loadFolderDelegate respondsToSelector:@selector(callLoginFinishedSuccessOnLoginController)]) {
+                [self.loadFolderDelegate callLoginFinishedSuccessOnLoginController];
+            }
+        }
+    }];
+}
+
+- (void)renameMailFolder:(NSString *)oldername newName:(NSString *)newname
+{
+    
+    //编码 uft7-imap
+    unsigned long encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF7_IMAP);
+    NSData *responseData =[newname dataUsingEncoding:encode ];
+    newname = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    
+    MCOIMAPOperation * op = [imapSession renameFolderOperation:oldername otherName:newname];
+    [op start:^(NSError * error) {
+        if ([self.editFolderDelegate respondsToSelector:@selector(callRenameMailFolder:)])
+        {
+            [self.editFolderDelegate callRenameMailFolder:error];
+        }
+        if (!error) {
+            if ([self.loadFolderDelegate respondsToSelector:@selector(callLoginFinishedSuccessOnLoginController)]) {
+                [self.loadFolderDelegate callLoginFinishedSuccessOnLoginController];
+            }
+        }
+    }];
+
+}
 @end

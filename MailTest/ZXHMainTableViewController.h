@@ -10,4 +10,5 @@
 #import "ZXHLoginSetViewController.h"
 @interface ZXHMainTableViewController : UITableViewController<ZXHLoginSetViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
 - (IBAction)showSettingsViewController:(id)sender;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @end

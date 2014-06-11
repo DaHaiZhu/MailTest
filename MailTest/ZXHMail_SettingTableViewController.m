@@ -145,6 +145,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_CONTENT_ROW];
     [[FXKeychain defaultKeychain] removeObjectForKey:PasswordKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [mailmanager stopTimer];
     [mailmanager cancelFetchOperation];
 }
 @end
