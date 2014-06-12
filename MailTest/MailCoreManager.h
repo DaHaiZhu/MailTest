@@ -33,6 +33,7 @@
     MCOIMAPSession *imapSession;
     MCOIMAPFetchMessagesOperation *imapMessagesFetchOp;
     MCOIMAPFetchFoldersOperation *imapFolderFecthOp;
+    MCOIMAPFolderStatusOperation *imapStatusFetchOp;
 }
 @property (weak) id<MailCoreManagerDelegate>delegate;
 @property (weak) id<MailCoreManagerDelegate>loadFolderDelegate;
@@ -73,5 +74,9 @@
 
 - (void)deleteMailFolder:(NSString *)foldername;
 
-- (void)renameMailFolder:(NSString *)oldername newName:(NSString *)newname;
+- (void)renameMailFolder:(ZXHMail_FolderObject *)folder newName:(NSString *)newname;
+
+//递归子文件夹
+- (void)recursionFolder:(NSString *)parent newparent:(NSString *)newparent account:(NSInteger)account;
+
 @end

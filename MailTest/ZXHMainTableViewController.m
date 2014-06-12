@@ -24,7 +24,6 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
 @interface ZXHMainTableViewController ()<MailCoreManagerDelegate,ZXHActivityTitleViewDelegate>
 {
     MailCoreManager *mailmanager;
-    float savedContentOffsetY;
     BOOL isEditCell;
 }
 
@@ -89,7 +88,6 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
     [self fetchFolderListFromLocalDB];
     [self setSearchBar];
     
-    savedContentOffsetY = self.tableView.tableHeaderView.frame.size.height;
 }
 
 - (void)setSearchBar
@@ -393,6 +391,7 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
                 
                 //检查文件夹是否存在
                 [mailmanager checkMailFolderIsNotExisted:folder];
+                
                 return cell;
                 break;
             }

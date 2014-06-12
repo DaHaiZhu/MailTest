@@ -666,6 +666,87 @@
     return YES;
 }
 
+
++(BOOL)renameFolder:(ZXHMail_FolderObject*)folder newFolder:(ZXHMail_FolderObject*)newfolder  dbPath:(NSString *)dbPath
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:dbPath];
+    if (![db open]) {
+        NSLog(@"数据库打开失败");
+        return NO;
+    };
+    [ZXHMail_FolderObject checkTableMail_FolderTableCreatedInDb:db];
+    
+    NSString *updateStr = [NSString stringWithFormat:@"UPDATE '%@' SET '%@'=?,'%@'=?,'%@'=?,'%@'=? WHERE %@=? AND %@=?",zxh_mail_folder_table,zxh_mail_folder_name_def,zxh_mail_folder_remoteid_def,zxh_mail_folder_showName_def,zxh_mail_folder_sequence_idr_def,zxh_mail_folder_accountid_def,zxh_mail_folder_remoteid_def];
+    BOOL worked = [db executeUpdate:updateStr,newfolder.zxh_mail_folder_name,newfolder.zxh_mail_folder_remoteid,newfolder.zxh_mail_folder_showName,newfolder.zxh_mail_folder_sequence_idr,[NSNumber numberWithInteger:folder.zxh_mail_folder_accountid],folder.zxh_mail_folder_remoteid];
+    FMDBQuickCheck(worked);
+    [db close];
+    return worked;
+}
+
+
++(NSMutableArray*)fetchFolderFromLocal:(NSString *)dbPath parent:(NSString *)parent accountid:(NSInteger)accountid
+{
+    NSMutableArray *resultArr=[[NSMutableArray alloc]init];
+    
+    FMDatabase *db = [FMDatabase databaseWithPath:dbPath];
+    if (![db open]) {
+        NSLog(@"数据库打开失败");
+        return resultArr;
+    };
+    [ZXHMail_FolderObject checkTableMail_FolderTableCreatedInDb:db];
+    
+    NSString *executeStr = [NSString stringWithFormat:@"select * from %@ where %@=? and %@=?",zxh_mail_folder_table,zxh_mail_folder_accountid_def,zxh_mail_folder_parentName_def];
+    FMResultSet *rs=[db executeQuery:executeStr,[NSNumber numberWithInteger:accountid],parent];
+    while ([rs next]) {
+        ZXHMail_FolderObject *folder = [[ZXHMail_FolderObject alloc] init];
+        folder.zxh_mail_folder_id = [rs intForColumn:zxh_mail_folder_id_def];
+        folder.zxh_mail_folder_accountid = [rs intForColumn:zxh_mail_folder_accountid_def];
+        folder.zxh_mail_folder_remoteid = [rs stringForColumn:zxh_mail_folder_remoteid_def];
+        folder.zxh_mail_folder_name = [rs stringForColumn:zxh_mail_folder_name_def];
+        folder.zxh_mail_folder_totalCnt = [rs stringForColumn:zxh_mail_folder_totalCnt_def];
+        folder.zxh_mail_folder_unReadCnt = [rs stringForColumn:zxh_mail_folder_unReadCnt_def];
+        folder.zxh_mail_folder_isTop = [rs stringForColumn:zxh_mail_folder_isTop_def];
+        folder.zxh_mail_folder_isVirtual = [rs stringForColumn:zxh_mail_folder_isVirtual_def];
+        folder.zxh_mail_folder_parentid = [rs stringForColumn:zxh_mail_folder_parentid_def];
+        folder.zxh_mail_folder_folderType = [rs intForColumn:zxh_mail_folder_folderType_def];
+        folder.zxh_mail_folder_sequence_idr = [rs stringForColumn:zxh_mail_folder_sequence_idr_def];
+        folder.zxh_mail_folder_showName = [rs stringForColumn:zxh_mail_folder_showName_def];
+        folder.zxh_mail_folder_parentName = [rs stringForColumn:zxh_mail_folder_parentName_def];
+        folder.zxh_mail_folder_syncStatus = [rs stringForColumn:zxh_mail_folder_syncStatus_def];
+        folder.zxh_mail_folder_svrKey = [rs stringForColumn:zxh_mail_folder_svrKey_def];
+        folder.zxh_mail_folder_syncUtc = [rs stringForColumn:zxh_mail_folder_syncUtc_def];
+        folder.zxh_mail_folder_outDate = [rs stringForColumn:zxh_mail_folder_outDate_def];
+        folder.zxh_mail_folder_hasNewMail = [rs stringForColumn:zxh_mail_folder_hasNewMail_def];
+        folder.zxh_mail_folder_remoteFolderType = [rs stringForColumn:zxh_mail_folder_remoteFolderType_def];
+        folder.zxh_mail_folder_rType = [rs stringForColumn:zxh_mail_folder_rType_def];
+        folder.zxh_mail_folder_uidIder = [rs stringForColumn:zxh_mail_folder_uidIder_def];
+        folder.zxh_mail_folder_accountemail = [rs stringForColumn:zxh_mail_folder_accountemail_def];
+        folder.zxh_mail_folder_acctid = [rs stringForColumn:zxh_mail_folder_acctid_def];
+        folder.zxh_mail_folder_editType = [rs stringForColumn:zxh_mail_folder_editType_def];
+        folder.zxh_mail_folder_uidNext = [rs intForColumn:zxh_mail_folder_uidNext_def];
+        [resultArr addObject:folder];
+    }
+    [rs close];
+    return resultArr;
+
+}
+
++(BOOL)updateFolderByID:(ZXHMail_FolderObject*)folder  dbPath:(NSString *)dbPath
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:dbPath];
+    if (![db open]) {
+        NSLog(@"数据库打开失败");
+        return NO;
+    };
+    [ZXHMail_FolderObject checkTableMail_FolderTableCreatedInDb:db];
+    
+    NSString *updateStr = [NSString stringWithFormat:@"UPDATE '%@' SET '%@'=?,'%@'=?,'%@'=? WHERE %@=?",zxh_mail_folder_table,zxh_mail_folder_name_def,zxh_mail_folder_remoteid_def,zxh_mail_folder_parentName_def,zxh_mail_folder_id_def];
+    BOOL worked = [db executeUpdate:updateStr,folder.zxh_mail_folder_name,folder.zxh_mail_folder_remoteid,folder.zxh_mail_folder_parentName,[NSNumber numberWithInteger:folder.zxh_mail_folder_id]];
+    FMDBQuickCheck(worked);
+    [db close];
+    return worked;
+}
+
 +(ZXHMail_FolderObject *)fetchFolderUidNextFromLocal:(ZXHMail_FolderObject*)folder dbPath:(NSString *)dbPath
 {
     ZXHMail_FolderObject *obj = [[ZXHMail_FolderObject alloc] init];

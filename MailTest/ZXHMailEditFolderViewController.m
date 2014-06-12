@@ -85,7 +85,7 @@
         HUD.delegate = self;
         [HUD show:YES];
         [self.textfield resignFirstResponder];
-        [mailmanager renameMailFolder:self.folderObj.zxh_mail_folder_remoteid newName:folderName];
+        [mailmanager renameMailFolder:self.folderObj newName:folderName];
     }
 }
 

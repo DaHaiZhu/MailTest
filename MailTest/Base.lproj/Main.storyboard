@@ -5,41 +5,41 @@
     </dependencies>
     <scenes>
         <!--Main Table View Controller-->
-        <scene sceneID="Z5f-NE-I4h">
+        <scene sceneID="GHK-MX-Y7n">
             <objects>
-                <tableViewController storyboardIdentifier="mainTable" id="Ncg-0C-xUz" customClass="ZXHMainTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="3dZ-EK-hfl">
+                <tableViewController storyboardIdentifier="mainTable" id="Q9a-42-9Rn" customClass="ZXHMainTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qBD-fw-viY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" showsBookmarkButton="YES" id="4ce-Dn-dPl">
+                        <searchBar key="tableHeaderView" contentMode="redraw" showsBookmarkButton="YES" id="ItP-S4-IUd">
                             <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
-                                <outlet property="delegate" destination="Ncg-0C-xUz" id="R8W-fX-gyk"/>
+                                <outlet property="delegate" destination="Q9a-42-9Rn" id="4Mg-b7-1EI"/>
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="detailCell" textLabel="4bR-Kh-NGN" detailTextLabel="1vi-98-ISn" rowHeight="50" style="IBUITableViewCellStyleValue1" id="sKL-ju-JhZ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="detailCell" textLabel="swS-G5-pdE" detailTextLabel="ve1-4h-yR4" rowHeight="50" style="IBUITableViewCellStyleValue1" id="XsY-AR-2U0">
                                 <rect key="frame" x="0.0" y="130" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sKL-ju-JhZ" id="LQd-Gs-IGX">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XsY-AR-2U0" id="VKq-Wr-7AW">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4bR-Kh-NGN">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="swS-G5-pdE">
                                             <rect key="frame" x="15" y="14" width="33" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1vi-98-ISn">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ve1-4h-yR4">
                                             <rect key="frame" x="241" y="14" width="44" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -47,132 +47,28 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Ncg-0C-xUz" id="JuV-Ow-ReW"/>
-                            <outlet property="delegate" destination="Ncg-0C-xUz" id="6HG-Oq-5YY"/>
+                            <outlet property="dataSource" destination="Q9a-42-9Rn" id="9Pf-Oj-mAI"/>
+                            <outlet property="delegate" destination="Q9a-42-9Rn" id="Wm6-In-Ymk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="fkL-Xz-AOX"/>
+                    <navigationItem key="navigationItem" id="Evk-Zk-A8Q"/>
                     <connections>
-                        <outlet property="searchBar" destination="4ce-Dn-dPl" id="EQy-bR-gyT"/>
-                        <outlet property="searchDisplayController" destination="tKi-Zb-2Lw" id="VkE-yP-r4N"/>
+                        <outlet property="searchBar" destination="ItP-S4-IUd" id="DmR-Uq-26R"/>
+                        <outlet property="searchDisplayController" destination="dvL-nS-q5H" id="c1Q-sT-voG"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5h6-Ab-31y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="fEb-IE-8nS">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="twy-eB-Jk1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="dvL-nS-q5H">
                     <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="LpB-SU-gc9"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="54p-UN-r7d"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="AcK-Xr-hVf"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="p75-xh-dMG"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="pba-Ya-zWn">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="a28-zb-QhA"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="iFf-k5-wMM"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="KeW-4m-KVE"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="re7-3U-8bh"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="mwD-fK-81q">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="deT-uh-rby"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="vqu-BY-DYB"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="Gux-3h-2iD"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="wAk-NP-aQr"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="8tQ-35-ogi">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="WLa-lB-On9"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="AcO-gs-P47"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="pR9-aI-VMf"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="zTO-JX-mka"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="Oha-C8-5Fn">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="ON3-py-5vE"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="qeC-jL-IG9"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="mf7-E7-jbX"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="dyG-bQ-eTX"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="WBs-ed-VoC">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="2e4-4B-HXV"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="GLt-W6-4uP"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="ExY-M8-Txx"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="MXK-EE-4Ow"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="frj-vD-p0H">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="92R-Gf-2rO"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="uZh-u5-8RZ"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="C8T-hy-mAO"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="bdA-EF-amf"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="BmL-If-qJ4">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="dfM-Nu-Hlr"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="vFK-WS-B2k"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="02a-OP-HaN"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="Xzd-zf-7P2"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="a3m-gJ-Yy3">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="te1-bq-he2"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="x6D-N5-e8a"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="PcE-Nd-6VL"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="dyb-16-Ly0"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="Z3g-g1-JgJ">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="XT0-DM-EXY"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="13d-tN-LON"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="zqQ-rL-PcH"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="tZb-5p-W2S"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="M1M-y7-Lxd">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="CMu-Eb-R4g"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="jiW-vL-cp7"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="iZv-bd-W2x"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="SiW-CS-Nyp"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="cEr-Ks-qRl">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="Iib-Dw-lDy"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="XHn-dc-wcy"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="vFL-2f-v7V"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="IK8-0s-jwl"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="teJ-N0-hSc">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="2Fy-RI-nU5"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="Acj-2m-KdC"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="45R-KX-bmd"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="hSG-Wd-pkM"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="tKi-Zb-2Lw">
-                    <connections>
-                        <outlet property="delegate" destination="Ncg-0C-xUz" id="XPk-tF-PEv"/>
-                        <outlet property="searchBar" destination="4ce-Dn-dPl" id="0ik-46-ytI"/>
-                        <outlet property="searchContentsController" destination="Ncg-0C-xUz" id="TKg-0I-R1m"/>
-                        <outlet property="searchResultsDataSource" destination="Ncg-0C-xUz" id="SFz-Ri-F6U"/>
-                        <outlet property="searchResultsDelegate" destination="Ncg-0C-xUz" id="c13-5t-wsg"/>
+                        <outlet property="delegate" destination="Q9a-42-9Rn" id="nfl-SL-yVa"/>
+                        <outlet property="searchBar" destination="ItP-S4-IUd" id="LZn-hG-DUD"/>
+                        <outlet property="searchContentsController" destination="Q9a-42-9Rn" id="WXt-wv-QVr"/>
+                        <outlet property="searchResultsDataSource" destination="Q9a-42-9Rn" id="sef-VY-zWt"/>
+                        <outlet property="searchResultsDelegate" destination="Q9a-42-9Rn" id="pfC-5t-ZtY"/>
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="424" y="159"/>
+            <point key="canvasLocation" x="426" y="167"/>
         </scene>
         <!--Mail Inbox Table View Controller-->
         <scene sceneID="tDR-fM-GCj">
@@ -281,7 +177,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="856" y="159"/>
+            <point key="canvasLocation" x="1007" y="173"/>
         </scene>
         <!--Mail Setting Table View Controller-->
         <scene sceneID="cgL-cr-Wb6">
@@ -499,7 +395,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Ncg-0C-xUz" kind="relationship" relationship="rootViewController" id="bdP-LM-OB0"/>
+                        <segue destination="Q9a-42-9Rn" kind="relationship" relationship="rootViewController" id="WMR-q8-bCS"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c9f-jB-847" userLabel="First Responder" sceneMemberID="firstResponder"/>

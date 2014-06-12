@@ -265,6 +265,9 @@
 +(BOOL)haveSaveFolderById:(ZXHMail_FolderObject*)folder dbPath:(NSString *)dbPath;
 +(NSMutableArray*)fetchAllFolderFromLocal:(NSString *)dbPath accountid:(NSInteger)accountid;
 +(ZXHMail_FolderObject *)fetchFolderUidNextFromLocal:(ZXHMail_FolderObject*)folder dbPath:(NSString *)dbPath;
++(BOOL)renameFolder:(ZXHMail_FolderObject*)folder newFolder:(ZXHMail_FolderObject*)newfolder  dbPath:(NSString *)dbPath;
++(NSMutableArray*)fetchFolderFromLocal:(NSString *)dbPath parent:(NSString *)parent accountid:(NSInteger)accountid;
++(BOOL)updateFolderByID:(ZXHMail_FolderObject*)folder  dbPath:(NSString *)dbPath;
 @end
 
 @interface ZXHMail_AccountSettingObject : NSObject
