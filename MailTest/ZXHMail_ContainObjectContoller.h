@@ -179,7 +179,7 @@
 +(BOOL)haveSaveMailById:(ZXHMail_MailInfoObject*)mail dbPath:(NSString *)dbPath;
 +(NSMutableArray*)fetchAllMailFromLocal:(NSString *)dbPath folderId:(NSInteger)foldID accountid:(NSInteger)accountid numberToLoad:(NSInteger)number;
 +(ZXHMail_MailInfoObject*)fetchMailFromLocalByID:(ZXHMail_MailInfoObject *)mail dbPath:(NSString *)dbPath;
-
++(NSInteger)fetchMaxUIDByID:(NSInteger )folderid dbPath:(NSString *)dbPath;
 @end
 
 @interface ZXHMail_Local_ItemObject : NSObject

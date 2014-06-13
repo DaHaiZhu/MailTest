@@ -108,6 +108,22 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
     //加载邮件列表
     [self loadMailListFromLocalDB];
     
+    [self checkNewMailReady];
+
+}
+
+- (void)checkNewMailReady
+{
+    //检查是否有新邮件
+    NSInteger maxUID = [ZXHMail_MailInfoObject fetchMaxUIDByID:self.folderObj.zxh_mail_folder_id
+                                                        dbPath:[[NSUserDefaults standardUserDefaults]objectForKey:REM_USER_DB_PATH ]];
+
+    if (maxUID>0) {
+        ZXHMail_FolderObject *obj = [[ZXHMail_FolderObject alloc] init];
+        obj.zxh_mail_folder_id = self.folderObj.zxh_mail_folder_id;
+        obj.zxh_mail_folder_uidNext = maxUID;
+        [mailmanager fetchNewMailByUID:self.folderObj oldObj:obj];
+    }
 }
 
 - (void)refreshView:(UIRefreshControl *)refresh
@@ -130,6 +146,7 @@ static NSString *inboxInfoIdentifier = @"InboxStatusCell";
                                                        numberToLoad:numberToLoad];
     
     [self.tableView reloadData];
+    [self checkNewMailReady];
 }
 
 - (void)loadMailListFromLocalDB

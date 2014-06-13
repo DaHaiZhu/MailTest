@@ -234,6 +234,14 @@
                    ,mail.zxh_mail_mailinfo_ip
                    ,[NSNumber numberWithInteger:mail.zxh_mail_mailinfo_convType]
                    ,[NSNumber numberWithInteger:mail.zxh_mail_mailinfo_attach_count]];
+    
+    if (worked)
+    {
+        NSLog(@"%d,%@,%@",mail.zxh_mail_mailinfo_folderid,mail.zxh_mail_mailinfo_folderName,mail.zxh_mail_mailinfo_messageId);
+    }else
+    {
+        NSLog(@"fail");
+    }
     FMDBQuickCheck(worked);
     [db close];
     return worked;
@@ -540,6 +548,42 @@
     return mail;
 }
 
++(NSInteger)fetchMaxUIDByID:(NSInteger )folderid dbPath:(NSString *)dbPath
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:dbPath];
+    if (![db open]) {
+        NSLog(@"数据库打开失败");
+        return -1;
+    };
+    [ZXHMail_MailInfoObject checkTableMail_InfoTableCreatedInDb:db];
+    [ZXHMail_FolderObject checkTableMail_FolderTableCreatedInDb:db];
+//    NSString *executeStr = [NSString stringWithFormat:@"SELECT MAX(CAST(%@ AS INTEGER)) FROM %@ WHERE  CAST(%@ AS INTEGER)<(SELECT %@ FROM %@ WHERE %@=?)-1 AND %@=?",zxh_mail_mailinfo_remoteid_def,zxh_mail_mailinfo_table,zxh_mail_mailinfo_remoteid_def,zxh_mail_folder_uidNext_def,zxh_mail_folder_table,zxh_mail_folder_id_def,zxh_mail_mailinfo_folderid_def];
+    NSInteger X = 0;
+    NSInteger Y = 0;
+    NSString *executeX = [NSString stringWithFormat:@"SELECT MAX(CAST(%@ AS INTEGER)) FROM %@ WHERE %@=?",zxh_mail_mailinfo_remoteid_def,zxh_mail_mailinfo_table,zxh_mail_mailinfo_folderid_def];
+    FMResultSet *rs=[db executeQuery:executeX,[NSNumber numberWithInteger:folderid]];
+    while ([rs next]) {
+        NSString *uid = [rs stringForColumnIndex:0];
+        X = [uid intValue];
+    }
+    [rs close];
+    NSString *executeY = [NSString stringWithFormat:@"SELECT %@ FROM %@ WHERE %@=?",zxh_mail_folder_uidNext_def,zxh_mail_folder_table,zxh_mail_folder_id_def];
+    FMResultSet *rsY=[db executeQuery:executeY,[NSNumber numberWithInteger:folderid]];
+    while ([rsY next]) {
+        Y = [rsY intForColumnIndex:0];
+    }
+    [rsY close];
+    if (X>0 && Y>0) {
+        if (X+1<Y) {
+            return X;
+        }else
+        {
+            return -1;
+        }
+    }
+    return -1;
+}
+
 @end
 
 
@@ -749,7 +793,7 @@
 
 +(ZXHMail_FolderObject *)fetchFolderUidNextFromLocal:(ZXHMail_FolderObject*)folder dbPath:(NSString *)dbPath
 {
-    ZXHMail_FolderObject *obj = [[ZXHMail_FolderObject alloc] init];
+
     FMDatabase *db = [FMDatabase databaseWithPath:dbPath];
     if (![db open]) {
         NSLog(@"数据库打开失败");
@@ -759,6 +803,7 @@
     NSString *executeStr = [NSString stringWithFormat:@"select %@,%@ from %@ where %@=? and %@=?",zxh_mail_folder_id_def,zxh_mail_folder_uidNext_def,zxh_mail_folder_table,zxh_mail_folder_accountid_def,zxh_mail_folder_remoteid_def];
     FMResultSet *rs=[db executeQuery:executeStr,[NSNumber numberWithInteger:folder.zxh_mail_folder_accountid],folder.zxh_mail_folder_remoteid];
     while ([rs next]) {
+        ZXHMail_FolderObject *obj = [[ZXHMail_FolderObject alloc] init];
         long uidnext= [rs longForColumn:zxh_mail_folder_uidNext_def];
         NSInteger folderid = [rs intForColumn:zxh_mail_folder_id_def];
         obj.zxh_mail_folder_uidNext = uidnext;

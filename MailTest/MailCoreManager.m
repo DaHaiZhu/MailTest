@@ -156,6 +156,7 @@ static NSTimer *timer;
     }
 }
 
+
 - (void)saveFolderListToLocalDB:(NSArray *)folders accountid:(NSUInteger)accountid
 {
     for (MCOIMAPFolder *folder in folders) {
@@ -166,8 +167,8 @@ static NSTimer *timer;
         MCOIMAPFolderInfoOperation * op = [imapSession folderInfoOperation:folder.path];
 
         [op start:^(NSError *error, MCOIMAPFolderInfo * info) {
+
             if (!error) {
-                
                 ZXHMail_FolderObject *folderObj = [[ZXHMail_FolderObject alloc] init];
                 folderObj.zxh_mail_folder_accountid = accountid;
                 folderObj.zxh_mail_folder_remoteid = folder.path;
@@ -233,43 +234,58 @@ static NSTimer *timer;
                     folderObj.zxh_mail_folder_editType = @"0";  //不可编辑文件夹
                 }
                 
-//                if (![ZXHMail_FolderObject haveSaveFolderById:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
-//                {
-//                    BOOL res  =  [ZXHMail_FolderObject saveNewFolder:folderObj
-//                                                              dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
-//                    if (res)
-//                    {
-//                        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
-//                                                                            object:self
-//                                                                          userInfo:nil];
-//                    }
-//                }else
-//                {
-//                    BOOL res  =  [ZXHMail_FolderObject updateFolder:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
-//                    if (res)
-//                    {
-//                        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
-//                                                                            object:self
-//                                                                          userInfo:nil];
-//                        
-//                    }
-//                }
-//   
-                if ([ZXHMail_FolderObject haveSaveFolderById:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
+                if ([[folder.path lowercaseString] isEqualToString:@"inbox"])
                 {
-
-                    //如果已经文件夹已经保存，则检查邮箱的UID是否发生改变，如果改变 则表示有新邮件，获取UID之后的所有新邮件
-                    ZXHMail_FolderObject *obj  = [ZXHMail_FolderObject fetchFolderUidNextFromLocal:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
-                    if (obj) {
-                        if (obj.zxh_mail_folder_uidNext < folderObj.zxh_mail_folder_uidNext)
+                    __block ZXHMail_FolderObject *block_obj = folderObj;
+                    dispatch_queue_t newThread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+                    dispatch_async(newThread, ^{
+                        
+                        if ([ZXHMail_FolderObject haveSaveFolderById:block_obj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
                         {
-                            //发现新邮件 从server获取邮件
-                            //[self fetchNewMailByUID:folderObj oldObj:obj];
+                            
+                            //如果已经文件夹已经保存，则检查邮箱的UID是否发生改变，如果改变 则表示有新邮件，获取UID之后的所有新邮件
+                            ZXHMail_FolderObject *obj  = [ZXHMail_FolderObject fetchFolderUidNextFromLocal:block_obj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+                            if (obj) {
+                                if (obj.zxh_mail_folder_uidNext < block_obj.zxh_mail_folder_uidNext)
+                                {
+                                    //发现新邮件 从server获取邮件
+                                    NSLog(@"======");
+                                    NSLog(@"block_obj:%@",block_obj.zxh_mail_folder_showName);
+                                    [self fetchNewMailByUID:block_obj oldObj:obj];
+                                }
+                            }
                         }
+                    });
+                }
+                //=======================================
+                /*
+                 保存文件夹
+                 */
+
+                if (![ZXHMail_FolderObject haveSaveFolderById:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
+                {
+                    BOOL res  =  [ZXHMail_FolderObject saveNewFolder:folderObj
+                                                              dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+                    if (res)
+                    {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
+                                                                            object:self
+                                                                          userInfo:nil];
+                    }
+                }else
+                {
+                    BOOL res  =  [ZXHMail_FolderObject updateFolder:folderObj dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+                    if (res)
+                    {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
+                                                                            object:self
+                                                                          userInfo:nil];
+                        
                     }
                 }
 
-               // [self fetchFolderDetailInfoToLocalDB:folderObj];
+               [self fetchFolderDetailInfoToLocalDB:folderObj];
             }else
             {
                 NSLog(@"error:%@",error.description);
@@ -298,6 +314,7 @@ static NSTimer *timer;
         }else
         {
             //fetchedMessages 存入数据库
+           
             [self saveMailListToLocalDB:fetchedMessages
                               accountid:folder.zxh_mail_folder_accountid
                                folderid:obj.zxh_mail_folder_id
@@ -317,26 +334,13 @@ static NSTimer *timer;
         MCOIMAPFolderStatusOperation *op = [imapSession folderStatusOperation:folder.zxh_mail_folder_remoteid];
         [op start:^(NSError *error, MCOIMAPFolderStatus * infoStatus) {
             folder.zxh_mail_folder_unReadCnt = [NSString stringWithFormat:@"%u",infoStatus.unseenCount];
-            if (![ZXHMail_FolderObject haveSaveFolderById:folder dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]])
+            BOOL res  =  [ZXHMail_FolderObject updateFolder:folder dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
+            if (res)
             {
-                BOOL res  =  [ZXHMail_FolderObject saveNewFolder:folder
-                                                          dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
-                if (res)
-                {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
-                                                                        object:self
-                                                                      userInfo:nil];
-                }
-            }else
-            {
-                BOOL res  =  [ZXHMail_FolderObject updateFolder:folder dbPath:[[NSUserDefaults standardUserDefaults] objectForKey:REM_USER_DB_PATH ]];
-                if (res)
-                {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
-                                                                        object:self
-                                                                      userInfo:nil];
-                    
-                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:Notification_reloadFolderListUI
+                                                                    object:self
+                                                                  userInfo:nil];
+                
             }
         }];
 
@@ -391,6 +395,7 @@ static NSTimer *timer;
 {
     for (MCOIMAPMessage *mail in fetched)
     {
+        
         ZXHMail_MailInfoObject *mailObj = [[ZXHMail_MailInfoObject alloc] init];
         mailObj.zxh_mail_mailinfo_folderid = folderid;
         mailObj.zxh_mail_mailinfo_remoteid =  [NSString stringWithFormat:@"%lu",(unsigned long)mail.uid];
@@ -453,9 +458,6 @@ static NSTimer *timer;
                     [self.delegate callFetchMessageFinished];
                 }
             }
-        }else
-        {
-        
         }
     }
 }
@@ -463,9 +465,13 @@ static NSTimer *timer;
 //检查邮箱文件夹是否存在
 - (void)checkMailFolderIsNotExisted:(ZXHMail_FolderObject *)folder
 {
-      MCOIMAPFolderInfoOperation * op = [imapSession folderInfoOperation:folder.zxh_mail_folder_remoteid];
-    [op start:^(NSError *error, MCOIMAPFolderInfo * info) {
 
+//    MCOIMAPFolderStatusOperation *op = [imapSession folderStatusOperation:folder.zxh_mail_folder_remoteid];
+//    [op start:^(NSError *error, MCOIMAPFolderStatus * infoStatus) {
+    
+    
+    MCOIMAPFolderInfoOperation * op = [imapSession folderInfoOperation:folder.zxh_mail_folder_remoteid];
+    [op start:^(NSError *error, MCOIMAPFolderInfo * info) {
         if (error.code == MCOErrorNonExistantFolder)
         {
             //文件夹不存在

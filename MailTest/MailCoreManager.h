@@ -79,4 +79,6 @@
 //递归子文件夹
 - (void)recursionFolder:(NSString *)parent newparent:(NSString *)newparent account:(NSInteger)account;
 
+//检查邮件夹是否需要从服务器读取新邮件
+
 @end
