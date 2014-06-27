@@ -465,11 +465,6 @@ static NSTimer *timer;
 //检查邮箱文件夹是否存在
 - (void)checkMailFolderIsNotExisted:(ZXHMail_FolderObject *)folder
 {
-
-//    MCOIMAPFolderStatusOperation *op = [imapSession folderStatusOperation:folder.zxh_mail_folder_remoteid];
-//    [op start:^(NSError *error, MCOIMAPFolderStatus * infoStatus) {
-    
-    
     MCOIMAPFolderInfoOperation * op = [imapSession folderInfoOperation:folder.zxh_mail_folder_remoteid];
     [op start:^(NSError *error, MCOIMAPFolderInfo * info) {
         if (error.code == MCOErrorNonExistantFolder)
@@ -490,6 +485,7 @@ static NSTimer *timer;
     }];
     
 }
+
 //检查邮件是否存在
 - (void)checkMailMessageIsNotExisted:(ZXHMail_MailInfoObject *)mailMessage
 {
